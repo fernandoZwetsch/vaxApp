@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./vax-app-fc9af-6434b40831bd.json');
+const serviceAccount = require('./token.json');
 
 let db = {};
 

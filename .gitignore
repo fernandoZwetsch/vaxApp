@@ -94,6 +94,9 @@ dist
 # Serverless directories
 .serverless/
 
+# Token files
+src/database/token.json
+
 # FuseBox cache
 .fusebox/
 
