@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const router = require('./route');
+const routes = require('./src/routes');
 
-app.use(router);
+app.use(express.json());
+app.use(routes);
  
 app.listen(3000);
