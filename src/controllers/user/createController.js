@@ -1,10 +1,9 @@
-const db = require('../../database/connection');
+const creatorService = require('../../services/user/creatorService');
 
 async function request (req, res){
   try {
-    const user = db.collection('users');
-    await user.doc().set(req.body)
-  
+    await creatorService.userCreator(req.body);
+    
     res.status(201).json({ success: true, message: 'User created with success' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
