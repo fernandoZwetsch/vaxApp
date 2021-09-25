@@ -12,12 +12,8 @@ async function mapper(params) {
     refCode: params.refCode,
     susCode: params.susCode
   }
-  let response = await validationSchemaService.validate(user, schema());
 
-  return  {
-    model: user,
-    error_messages: response
-  }
+  return user
 }
 
 function address(params) {
@@ -29,6 +25,21 @@ function address(params) {
     number: params.number,
     district: params.district
   }
+}
+
+function generateCode(prefix) {
+  return `${prefix}${randomString(6)}`
+}
+
+function randomString(len) {
+  var str = "";                               
+  for (var i = 0; i < len; i++) {              
+    var rand = Math.floor(Math.random() * 62); 
+    var charCode = rand += rand > 9 ? (rand < 36 ? 55 : 61) : 48; 
+    str += String.fromCharCode(charCode);      
+  }
+  
+  return str; 
 }
 
 function schema() {
@@ -98,4 +109,10 @@ function schema() {
   }
 }
 
+async function validate(user) {
+  return await validationSchemaService.validate(user, schema());
+}
+
 module.exports.mapper = mapper;
+module.exports.validate = validate;
+module.exports.generateCode = generateCode;

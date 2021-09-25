@@ -43,5 +43,20 @@ async function validate(user, schema, path = [], messages = []) {
   return messages
 }
 
+async function overwritingEmpty(obj_old, obj_new) {
+  for (const key in obj_new) {
+    const field_old = obj_old[key];
+    const field = obj_new[key];
+
+    if (field == null || field == undefined){
+      obj_new[key] = obj_old[key]
+    }else if (typeof field == "object") {
+      obj_new[key] = await overwritingEmpty(field_old, field);
+    }
+  }
+
+  return obj_new
+}
 
 module.exports.validate = validate;
+module.exports.overwritingEmpty = overwritingEmpty;
