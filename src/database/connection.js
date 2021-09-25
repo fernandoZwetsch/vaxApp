@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./token.json');
+const serviceAccount = require('./token.js');
 
 let db = {};
 
