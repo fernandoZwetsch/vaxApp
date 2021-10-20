@@ -13,9 +13,11 @@ async function mapper(params) {
 }
 
 function date_formatter(date) {
-  if (date)
-    return null
-  return  new Date(date).toISOString()
+  if (date){
+    return  new Date(date).toISOString()
+  }
+  
+  return false
 }
 
 function schema() {

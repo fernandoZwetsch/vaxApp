@@ -5,9 +5,9 @@ const vaccineService = require('./vaccineService');
 
 async function vaccinationCreator(body){
   try {
-    const { refCode, vaccineId } = req.body
-    const user = userService.getByRefCode(refCode);
-    const vaccine = vaccineService.vaccineShow(vaccineId);
+    const { refCode, vaccineId } = body
+    const user = await userService.getByRefCode(refCode);
+    const vaccine = await vaccineService.vaccineShow(vaccineId);
 
     body.userId = user.id;
     const vaccineMapper = await vaccinationModel.mapper(body);
@@ -17,7 +17,7 @@ async function vaccinationCreator(body){
       throw new Error(validation.join(", "))
     }
     
-    let documentRef = db.collection('vaccines').doc();
+    let documentRef = db.collection('vaccinations').doc();
     await documentRef.create(vaccineMapper);
   
     return documentRef.id

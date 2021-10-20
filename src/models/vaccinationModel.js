@@ -4,7 +4,7 @@ async function mapper(params) {
   const vaccination = {
     userId: params.userId,
     vaccineId: params.vaccineId,
-    scheduling: date_formatter(params.scheduling),
+    scheduling: date_formatter(params.scheduling) || null,
     applicationAt: date_formatter(params.applicationAt) || new Date().toISOString(),
     dose: params.dose
   }
@@ -13,9 +13,11 @@ async function mapper(params) {
 }
 
 function date_formatter(date) {
-  if (date)
-    return null
-  return  new Date(date).toISOString()
+  if (date){
+    return  new Date(date).toISOString()
+  }
+  
+  return false
 }
 
 function schema() {
@@ -30,11 +32,11 @@ function schema() {
     },
     scheduling: {
       required: false,
-      type: 'data'
+      type: 'date'
     },
     applicationAt: {
       required: true,
-      type: 'data'
+      type: 'date'
     },
     dose: {
       required: true,

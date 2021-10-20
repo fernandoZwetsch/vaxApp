@@ -65,7 +65,7 @@ async function getByRefCode(refCode){
   try {
     let collection = db.collection('users');
     const userFind = await collection.where('refCode', '==', refCode).get();
-    const user = await userFind.data();
+    const user = userFind.docs[0];
 
     if (!user){
       throw new Error("User not found")
