@@ -61,6 +61,22 @@ async function userShow(id){
   }
 }
 
+async function getByRefCode(refCode){
+  try {
+    let collection = db.collection('users');
+    const userFind = await collection.where('refCode', '==', refCode).get();
+    const user = await userFind.data();
+
+    if (!user){
+      throw new Error("User not found")
+    }
+
+    return user
+  } catch (error) {
+    throw error
+  }
+}
+
 async function userRemove(id){
   try {
     let collection = db.collection('users');
@@ -82,4 +98,5 @@ async function userRemove(id){
 module.exports.userCreator = userCreator;
 module.exports.userUpdater = userUpdater;
 module.exports.userShow = userShow;
+module.exports.getByRefCode = getByRefCode;
 module.exports.userRemove = userRemove;
