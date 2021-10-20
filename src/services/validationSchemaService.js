@@ -4,6 +4,20 @@ async function validate(user, schema, path = [], messages = []) {
     const field = user[key];
     const pathField = path.join('.') + `.${key}`;
 
+    if (validation.type.toLowerCase() == "date")  {
+      if (validation.required) {
+        if (!field) {
+          messages.push(`${pathField} is required`);
+        }else{
+          try {
+            new Date(field)
+          } catch (error) {
+            messages.push(`${pathField} is invalid`);
+          }
+        }
+      }
+    }
+
     if (validation.type.toLowerCase() == "object") {
       let responses = await validate(field, validation.data, path.concat([key]), messages);
       messages.concat(responses);
