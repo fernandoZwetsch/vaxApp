@@ -4,6 +4,8 @@ async function mapper(params) {
   const vaccine = {
     image: params.image,
     name: params.name,
+    illness: params.illness,
+    batch: params.batch,
     validity: date_formatter(params.validity) || new Date().toISOString(),
     category: params.category,
     description: params.description
@@ -28,6 +30,14 @@ function schema() {
     },
     name: {
       required: true,
+      type: 'string'
+    },
+    illness: {
+      required: false,
+      type: 'string'
+    },
+    batch: {
+      required: false,
       type: 'string'
     },
     validity: {

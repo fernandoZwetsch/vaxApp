@@ -42,5 +42,6 @@ router.delete('/vaccine/:id', vaccine.remove);
 //vaccination
 const vaccination = require('./controllers/vaccinationController')
 router.post('/vaccination', vaccination.create);
+router.get('/vaccination/list', vaccination.list);
 
 module.exports = router;

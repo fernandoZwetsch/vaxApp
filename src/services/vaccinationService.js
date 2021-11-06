@@ -26,4 +26,33 @@ async function vaccinationCreator(body){
   }
 }
 
+async function vaccinationList(params){
+  try {
+    const { refCode } = params
+    const user = await userService.getByRefCode(refCode);
+
+    if (!user){
+      throw new Error("User not found.")
+    }
+
+    let collection = db.collection('vaccinations');
+    const vaccinations = await collection.where('userId', '==', user.id).get()
+    
+    let collectionVaccines = db.collection('vaccines');
+    const vac = await vaccinations.docs.map(async (doc) => {
+      let vaccination = doc.data()
+      let id = vaccination.vaccineId
+      const vaccine = await collectionVaccines.doc(id).get();
+      vaccination.vaccine = await vaccine.data();
+      
+      return vaccination
+    });
+    
+    return await Promise.all(vac)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports.vaccinationCreator = vaccinationCreator;
+module.exports.vaccinationList = vaccinationList;
