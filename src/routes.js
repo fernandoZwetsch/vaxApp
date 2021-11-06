@@ -37,11 +37,12 @@ const vaccine = require('./controllers/vaccineController')
 router.post('/vaccine', vaccine.create);
 router.put('/vaccine', vaccine.update);
 router.get('/vaccine/:id', vaccine.show);
+router.get('/vaccines', vaccine.list);
 router.delete('/vaccine/:id', vaccine.remove);
 
 //vaccination
 const vaccination = require('./controllers/vaccinationController')
 router.post('/vaccination', vaccination.create);
-router.get('/vaccination/list', vaccination.list);
+router.get('/vaccinations', vaccination.list);
 
 module.exports = router;

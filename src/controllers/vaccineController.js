@@ -59,7 +59,19 @@ async function remove (req, res){
   }
 }
 
+
+async function list (req, res){
+  try {
+    const vaccines = await vaccineService.vaccineList();
+    
+    res.status(200).json({ success: true, message: 'Vaccines', vaccines: vaccines});
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 module.exports.create = create;
 module.exports.update = update;
 module.exports.show = show;
 module.exports.remove = remove;
+module.exports.list = list;

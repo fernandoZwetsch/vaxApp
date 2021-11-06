@@ -78,7 +78,20 @@ async function vaccineRemove(id){
   }
 }
 
+async function vaccineList(){
+  try {
+    let collectionVaccines = db.collection('vaccines');
+ 
+    const vaccines = await collectionVaccines.get()
+    return vaccines.docs.map(doc => doc.data());
+
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports.vaccineCreator = vaccineCreator;
 module.exports.vaccineUpdater = vaccineUpdater;
 module.exports.vaccineShow = vaccineShow;
 module.exports.vaccineRemove = vaccineRemove;
+module.exports.vaccineList = vaccineList;
