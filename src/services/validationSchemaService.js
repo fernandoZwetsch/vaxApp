@@ -28,14 +28,28 @@ async function validate(user, schema, path = [], messages = []) {
         messages.push(`${pathField} needs to be the type ${validation.type}`);
       }
     }else {
-      if (validation.required) {
-        if (!field) {
-          messages.push(`${pathField} is required`);
+      if (validation.type.toLowerCase() == "date")  {
+        if (validation.required) {
+          if (!field) {
+            messages.push(`${pathField} is required`);
+          }else{
+            try {
+              new Date(field)
+            } catch (error) {
+              messages.push(`${pathField} is invalid`);
+            }
+          }
         }
-      }
-
-      if ((typeof field).toLowerCase() != validation.type.toLowerCase()) {
-          messages.push(`${pathField} needs to be the type ${validation.type}`);
+      }else{
+        if (validation.required) {
+          if (!field) {
+            messages.push(`${pathField} is required`);
+          }
+        }
+  
+        if ((typeof field).toLowerCase() != validation.type.toLowerCase()) {
+            messages.push(`${pathField} needs to be the type ${validation.type}`);
+        }
       }
     }
   }
