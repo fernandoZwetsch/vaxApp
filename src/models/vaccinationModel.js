@@ -4,6 +4,7 @@ async function mapper(params) {
   const vaccination = {
     userId: params.userId,
     vaccineId: params.vaccineId,
+    batch: params.batch,
     scheduling: date_formatter(params.scheduling) || null,
     applicationAt: date_formatter(params.applicationAt) || new Date().toISOString(),
     dose: params.dose
@@ -33,6 +34,10 @@ function schema() {
     scheduling: {
       required: false,
       type: 'date'
+    },
+    batch: {
+      required: false,
+      type: 'string'
     },
     applicationAt: {
       required: true,

@@ -5,7 +5,6 @@ async function mapper(params) {
     image: params.image,
     name: params.name,
     illness: params.illness,
-    batch: params.batch,
     validity: date_formatter(params.validity) || new Date().toISOString(),
     category: params.category,
     description: params.description
@@ -33,10 +32,6 @@ function schema() {
       type: 'string'
     },
     illness: {
-      required: false,
-      type: 'string'
-    },
-    batch: {
       required: false,
       type: 'string'
     },
