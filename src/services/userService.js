@@ -1,16 +1,20 @@
 const db = require('../database/connection');
 const userModel = require('../models/userModel');
 const validationSchemaService = require('../services/validationSchemaService');
+const bcrypt = require('bcryptjs');
 
 async function userCreator(body){
   try {
     body['refCode'] = userModel.generateCode('');
-    const userMapper = await userModel.mapper(body);
+    let userMapper = await userModel.mapper(body);
     const validation = await userModel.validate(userMapper);
 
     if (validation.length > 0){
       throw new Error(validation.join(", "))
     }
+
+    const hash = await bcrypt.hash(userMapper['password'], 10)
+    userMapper['password'] = hash;
     
     let documentRef = db.collection('users').doc();
     await documentRef.create(userMapper);
